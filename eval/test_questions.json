@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "query": "How many days of Annual Leave do full-time employees get per year?",
+    "is_in_scope": true,
+    "expected_source": "leave_policy.md",
+    "expected_keywords": ["20 days", "Annual Leave", "1.67"]
+  },
+  {
+    "id": 2,
+    "query": "What is the maximum number of annual leave days that can be carried forward?",
+    "is_in_scope": true,
+    "expected_source": "leave_policy.md",
+    "expected_keywords": ["5", "carry", "December 31"]
+  },
+  {
+    "id": 3,
+    "query": "When is a medical certificate required for sick leave?",
+    "is_in_scope": true,
+    "expected_source": "leave_policy.md",
+    "expected_keywords": ["3", "consecutive", "medical certificate", "48 hours"]
+  },
+  {
+    "id": 4,
+    "query": "How many weeks of paid maternity leave are provided?",
+    "is_in_scope": true,
+    "expected_source": "leave_policy.md",
+    "expected_keywords": ["26 weeks", "182 calendar days", "maternity"]
+  },
+  {
+    "id": 5,
+    "query": "What is the monthly reimbursement allowance for home broadband internet?",
+    "is_in_scope": true,
+    "expected_source": "reimbursement_policy.md",
+    "expected_keywords": ["$50", "month", "broadband", "internet"]
+  },
+  {
+    "id": 6,
+    "query": "What is the one-time stipend amount for ergonomic home office furniture?",
+    "is_in_scope": true,
+    "expected_source": "reimbursement_policy.md",
+    "expected_keywords": ["$300", "90 days", "ergonomic"]
+  },
+  {
+    "id": 7,
+    "query": "What is the daily meal allowance for business travel in Tier 1 cities?",
+    "is_in_scope": true,
+    "expected_source": "reimbursement_policy.md",
+    "expected_keywords": ["$75", "Tier 1", "meal"]
+  },
+  {
+    "id": 8,
+    "query": "How long is the standard employee probationary period?",
+    "is_in_scope": true,
+    "expected_source": "onboarding_faq.md",
+    "expected_keywords": ["90 calendar days", "3 months", "probation"]
+  },
+  {
+    "id": 9,
+    "query": "When are monthly salaries disbursed by payroll?",
+    "is_in_scope": true,
+    "expected_source": "onboarding_faq.md",
+    "expected_keywords": ["last working day", "calendar month"]
+  },
+  {
+    "id": 10,
+    "query": "What is the maximum allowable value for gifts from vendors or clients?",
+    "is_in_scope": true,
+    "expected_source": "code_of_conduct.md",
+    "expected_keywords": ["$50", "gifts", "disclosed"]
+  },
+  {
+    "id": 11,
+    "query": "What is the current stock price of Apple Inc.?",
+    "is_in_scope": false,
+    "expected_source": null,
+    "expected_keywords": ["don't have enough information"]
+  },
+  {
+    "id": 12,
+    "query": "Can I bring my pet iguana or dog into the corporate office?",
+    "is_in_scope": false,
+    "expected_source": null,
+    "expected_keywords": ["don't have enough information"]
+  },
+  {
+    "id": 13,
+    "query": "What is the company policy regarding quantum computing research funding?",
+    "is_in_scope": false,
+    "expected_source": null,
+    "expected_keywords": ["don't have enough information"]
+  },
+  {
+    "id": 14,
+    "query": "How do I book a private helicopter for weekend personal trips?",
+    "is_in_scope": false,
+    "expected_source": null,
+    "expected_keywords": ["don't have enough information"]
+  },
+  {
+    "id": 15,
+    "query": "What is the recipe for chocolate lava cake in the corporate cafeteria?",
+    "is_in_scope": false,
+    "expected_source": null,
+    "expected_keywords": ["don't have enough information"]
+  }
+]

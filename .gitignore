@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+.venv/
+venv/
+ENV/
+
+# Data artifacts / FAISS index store
+data/processed/
+*.index
+*.db
+*.sqlite3
+!eval/test_questions.json
+!eval/test_actions.json
+
+# IDE
+.vscode/
+.idea/
+
+# Internal design & master prompt documentation
+ARCHITECTURE_AND_DESIGN.md
+GEMINI.md
+
+# Secrets & Environment variables
+.env
+.env.*
+!.env.example

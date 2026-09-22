@@ -1,0 +1,92 @@
+[
+  {
+    "id": "ACT-01",
+    "scenario": "Compliant Annual Leave Request",
+    "message": "I would like to apply for 3 days of Annual Leave starting on November 15th to November 17th. I am giving 3 weeks advance notice.",
+    "intent": "leave_request",
+    "expected_decision": "APPROVE",
+    "is_violation": false,
+    "rationale": "Within 20-day accrual cap and gives >2 weeks advance notice required for 3+ days."
+  },
+  {
+    "id": "ACT-02",
+    "scenario": "Compliant Internet Reimbursement",
+    "message": "Please reimburse my home broadband bill of $48.50 for October. Itemized invoice with my name is attached.",
+    "intent": "reimbursement_claim",
+    "expected_decision": "APPROVE",
+    "is_violation": false,
+    "rationale": "$48.50 is under the $50/month broadband ceiling with required receipt."
+  },
+  {
+    "id": "ACT-03",
+    "scenario": "Compliant Ergonomic Office Furniture Stipend",
+    "message": "I joined 45 days ago and bought an ergonomic desk chair for $280. Here is the receipt for reimbursement.",
+    "intent": "reimbursement_claim",
+    "expected_decision": "APPROVE",
+    "is_violation": false,
+    "rationale": "$280 is under the $300 one-time stipend cap and filed within the 90-day window."
+  },
+  {
+    "id": "ACT-04",
+    "scenario": "Compliant Tier 1 Metro Per Diem Claim",
+    "message": "Claiming daily meal allowance of $65 for an official client meeting in London yesterday. Receipts attached.",
+    "intent": "reimbursement_claim",
+    "expected_decision": "APPROVE",
+    "is_violation": false,
+    "rationale": "London is Tier 1 Metro and $65 is within the $75/day meal per diem limit."
+  },
+  {
+    "id": "ACT-05",
+    "scenario": "Sick Leave for 4 days without Medical Certificate (Missing Info)",
+    "message": "I was sick with flu for 4 consecutive business days last week. I do not have a doctor's certificate.",
+    "intent": "leave_request",
+    "expected_decision": "FLAG_FOR_REVIEW",
+    "is_violation": true,
+    "rationale": "Absence of 3+ consecutive days mandates a medical certificate within 48 hours."
+  },
+  {
+    "id": "ACT-06",
+    "scenario": "Borderline Late Expense Claim (45 Days Old)",
+    "message": "Submitting a taxi reimbursement of $35 from a client visit 45 days ago. I was traveling and delayed submitting.",
+    "intent": "reimbursement_claim",
+    "expected_decision": "FLAG_FOR_REVIEW",
+    "is_violation": true,
+    "rationale": "Exceeds standard 30-day window but under 60-day automatic rejection cutoff; needs manager discretion."
+  },
+  {
+    "id": "ACT-07",
+    "scenario": "Deliberate Violation: Excessive Internet Bill ($150 vs $50 Cap)",
+    "message": "I want to claim $160 for high-speed gigabit fiber home internet for this month.",
+    "intent": "reimbursement_claim",
+    "expected_decision": "BLOCK",
+    "is_violation": true,
+    "rationale": "$160 blatantly exceeds the strict $50 USD per month broadband ceiling."
+  },
+  {
+    "id": "ACT-08",
+    "scenario": "Deliberate Violation: Outdated Expense (90 Days Old)",
+    "message": "Claiming $220 for team dinner from 95 days ago that I forgot to file.",
+    "intent": "reimbursement_claim",
+    "expected_decision": "BLOCK",
+    "is_violation": true,
+    "rationale": "Claims older than 60 days are automatically rejected by policy."
+  },
+  {
+    "id": "ACT-09",
+    "scenario": "Deliberate Violation: Luxury Hotel Room ($600/night vs $180 Cap)",
+    "message": "Please reimburse $650 per night for 2 nights at the Ritz Carlton in Tier 1 city.",
+    "intent": "reimbursement_claim",
+    "expected_decision": "BLOCK",
+    "is_violation": true,
+    "rationale": "Hotel ceiling is capped at $180 USD/night for Tier 1 cities."
+  },
+  {
+    "id": "ACT-10",
+    "scenario": "Deliberate Violation: Reimbursing Personal Alcohol",
+    "message": "I purchased $90 of craft beer and wine for my personal weekend relaxation. Requesting company reimbursement.",
+    "intent": "reimbursement_claim",
+    "expected_decision": "BLOCK",
+    "is_violation": true,
+    "rationale": "Alcohol is strictly non-reimbursable for personal consumption under HR-POL-002."
+  }
+]
