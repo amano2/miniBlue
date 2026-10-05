@@ -22,7 +22,6 @@ data/processed/
 # Internal design & master prompt documentation
 ARCHITECTURE_AND_DESIGN.md
 GEMINI.md
-GITIGNORE_WALKTHROUGH.md
 
 # Secrets & Environment variables
 .env
