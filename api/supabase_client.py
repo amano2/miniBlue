@@ -99,3 +99,4 @@ def sync_review_event_to_supabase(review: dict[str, Any]) -> bool:
     except Exception as e:
         logger.warning(f"Supabase review_event sync error: {e}")
         return False
+

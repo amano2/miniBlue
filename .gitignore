@@ -10,6 +10,8 @@ ENV/
 data/processed/
 *.index
 *.db
+*.db-shm
+*.db-wal
 *.sqlite3
 !eval/test_questions.json
 !eval/test_actions.json

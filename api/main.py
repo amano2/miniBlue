@@ -91,6 +91,7 @@ app.include_router(telemetry.router)
 
 
 @app.get("/health", tags=["System Health"])
+@app.get("/api/v1/health", tags=["System Health"])
 def health_check() -> dict[str, Any]:
     """Liveness probe, index readiness, and LLM configuration status."""
     faiss_path = config.INDEX_PATH
