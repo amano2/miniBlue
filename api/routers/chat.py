@@ -17,6 +17,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from api.auth import get_current_user, get_optional_current_user
 from api.db import get_db_connection
+from api.supabase_client import sync_conversation_log_to_supabase, sync_action_log_to_supabase
 from api.schemas import (
     ActionPayload,
     ChatRequest,
@@ -117,8 +118,8 @@ def handle_chat(
             """
             INSERT INTO conversation_logs (
                 session_id, user_id, timestamp, user_message, intent,
-                confidence, agent_used, reply, governance_decision,
-                action_log_id, latency_ms, fallback_mode, citations_json
+                confidence, agent_used, response, governance_decision,
+                action_id, latency_ms, fallback_mode, citations_json
             )
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
@@ -133,13 +134,29 @@ def handle_chat(
                 res.get("response", ""),
                 res.get("governance_decision"),
                 res.get("log_id"),
-                res.get("latency_ms", 0.0),
+                int(res.get("latency_ms", 0.0)),
                 0,
                 json.dumps([c.dict() for c in citations]),
             ),
         )
         conn.commit()
         conn.close()
+
+        # Sync to Supabase in background
+        sync_conversation_log_to_supabase({
+            "session_id": session_id,
+            "user_id": user_id,
+            "timestamp": now_iso,
+            "user_message": message,
+            "intent": res.get("intent", "other"),
+            "agent_used": res.get("agent_used", "Orchestrator"),
+            "confidence": res.get("confidence", 1.0),
+            "response": res.get("response", ""),
+            "citations_json": [c.dict() for c in citations],
+            "fallback_mode": False,
+            "latency_ms": int(res.get("latency_ms", 0.0)),
+            "action_id": res.get("log_id"),
+        })
     except Exception as e:
         logger.warning(f"Error persisting conversation log for user {user_id}: {e}")
 
@@ -211,10 +228,7 @@ def get_session_transcript(
     session = cursor.fetchone()
     if not session:
         conn.close()
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail={"error": {"code": "SESSION_NOT_FOUND", "message": f"Session '{session_id}' not found."}},
-        )
+        return {"session_id": session_id, "title": "New Consultation", "messages": []}
 
     # Role check: employee can only see own; manager/admin/auditor can inspect
     if current_user["role"] == "employee" and session["user_id"] != current_user["id"]:
@@ -227,7 +241,7 @@ def get_session_transcript(
     cursor.execute(
         """
         SELECT id, timestamp, user_message, agent_used, intent, confidence,
-               reply, governance_decision, action_log_id, latency_ms, citations_json
+               response, governance_decision, action_id, latency_ms, citations_json
         FROM conversation_logs
         WHERE session_id = ?
         ORDER BY timestamp ASC
@@ -254,9 +268,10 @@ def get_session_transcript(
                 "agent_used": m["agent_used"],
                 "intent": m["intent"],
                 "confidence": m["confidence"],
-                "reply": m["reply"],
+                "reply": m["response"],
+                "response": m["response"],
                 "governance_decision": m["governance_decision"],
-                "action_log_id": m["action_log_id"],
+                "action_log_id": m["action_id"],
                 "latency_ms": m["latency_ms"],
                 "citations": citations,
             }

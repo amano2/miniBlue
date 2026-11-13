@@ -145,7 +145,8 @@ def init_extended_db() -> None:
             citations_json TEXT,
             fallback_mode  INTEGER NOT NULL DEFAULT 0,
             latency_ms     INTEGER,
-            action_id      INTEGER REFERENCES action_logs(id)
+            action_id      INTEGER REFERENCES action_logs(id),
+            governance_decision TEXT
         )
         """
     )

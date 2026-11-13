@@ -34,7 +34,7 @@ def list_policies(
     cursor = conn.cursor()
     cursor.execute(
         """
-        SELECT doc_id, title, filename, version, chunk_count
+        SELECT doc_id, title, file_path, version, chunk_count
         FROM policy_docs
         ORDER BY doc_id ASC
         """
@@ -46,7 +46,7 @@ def list_policies(
         PolicyDocOut(
             doc_id=r["doc_id"],
             title=r["title"],
-            filename=r["filename"],
+            filename=Path(r["file_path"]).name if r["file_path"] else f"{r['doc_id']}.md",
             version=r["version"],
             chunk_count=r["chunk_count"],
         )
@@ -64,7 +64,7 @@ def get_policy_detail(
     cursor = conn.cursor()
     cursor.execute(
         """
-        SELECT doc_id, title, filename, version, chunk_count, full_text
+        SELECT doc_id, title, file_path, version, chunk_count
         FROM policy_docs
         WHERE doc_id = ?
         """,
@@ -92,16 +92,20 @@ def get_policy_detail(
     chunks = [dict(c) for c in cursor.fetchall()]
     conn.close()
 
-    full_text = doc["full_text"] or ""
-    if not full_text:
-        file_path = RAW_DOCS_DIR / doc["filename"]
-        if file_path.exists():
-            full_text = file_path.read_text(encoding="utf-8")
+    # Read full text from disk
+    full_text = ""
+    fpath = Path(doc["file_path"]) if doc["file_path"] else (RAW_DOCS_DIR / f"{doc_id}.md")
+    if not fpath.is_absolute():
+        fpath = Path(__file__).resolve().parent.parent.parent / fpath
+    if fpath.exists():
+        full_text = fpath.read_text(encoding="utf-8")
+    elif (RAW_DOCS_DIR / f"{doc_id}.md").exists():
+        full_text = (RAW_DOCS_DIR / f"{doc_id}.md").read_text(encoding="utf-8")
 
     return {
         "doc_id": doc["doc_id"],
         "title": doc["title"],
-        "filename": doc["filename"],
+        "filename": Path(doc["file_path"]).name if doc["file_path"] else f"{doc['doc_id']}.md",
         "version": doc["version"],
         "chunk_count": doc["chunk_count"],
         "content": full_text,

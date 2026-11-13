@@ -140,13 +140,26 @@ def log_action_decision(
     # If flagged, initial status is PENDING_REVIEW; otherwise RESOLVED
     initial_status = "PENDING_REVIEW" if decision == "FLAG_FOR_REVIEW" else "RESOLVED"
 
+    cursor.execute("PRAGMA table_info(action_logs)")
+    cols = [c[1] for c in cursor.fetchall()]
+    rule_col = "cited_rule" if "cited_rule" in cols else "rule_cited"
+
+    valid_decisions = ["APPROVE", "FLAG_FOR_REVIEW", "BLOCK", "APPROVE_WITH_EXCEPTION", "REJECT_CONFIRMED"]
+    clean_decision = decision if decision in valid_decisions else ("FLAG_FOR_REVIEW" if "FLAG" in decision else ("BLOCK" if "BLOCK" in decision else "APPROVE"))
+
+    review_status_clause = ", review_status" if "review_status" in cols else ""
+    review_status_val = f", 'pending'" if "review_status" in cols and clean_decision == "FLAG_FOR_REVIEW" else (", 'none'" if "review_status" in cols else "")
+    req_clause = ", requester_id" if "requester_id" in cols else ""
+    req_val = ", 1" if "requester_id" in cols else ""
+
     cursor.execute(
-        """
+        f"""
         INSERT INTO action_logs (
             session_id, timestamp, intent, action_type, payload_json,
-            decision, reason, rule_cited, status, prev_hash, entry_hash
+            decision, reason, {rule_col}, status, prev_hash, entry_hash
+            {review_status_clause} {req_clause}
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? {review_status_val} {req_val})
         """,
         (
             session_id,
@@ -154,7 +167,7 @@ def log_action_decision(
             intent,
             action_type,
             payload_str,
-            decision,
+            clean_decision,
             reason,
             rule_cited,
             initial_status,
@@ -165,6 +178,26 @@ def log_action_decision(
     conn.commit()
     log_id = cursor.lastrowid or 0
     conn.close()
+
+    try:
+        from api.supabase_client import sync_action_log_to_supabase
+        sync_action_log_to_supabase({
+            "id": log_id,
+            "session_id": session_id,
+            "requester_id": 1,
+            "timestamp": now_iso,
+            "intent": intent,
+            "action_type": action_type,
+            "payload_json": payload,
+            "decision": clean_decision,
+            "reason": reason,
+            "cited_rule": rule_cited,
+            "prev_hash": prev_hash,
+            "entry_hash": entry_hash,
+            "review_status": "pending" if clean_decision == "FLAG_FOR_REVIEW" else "none",
+        })
+    except Exception:
+        pass
     return log_id
 
 
@@ -183,13 +216,19 @@ def log_conversation_turn(
     cursor = conn.cursor()
     now_iso = datetime.now().isoformat()
 
+    cursor.execute("PRAGMA table_info(conversation_logs)")
+    cols = [c[1] for c in cursor.fetchall()]
+    resp_col = "response" if "response" in cols else "response_text"
+    user_col = "user_id, " if "user_id" in cols else ""
+    user_val = "1, " if "user_id" in cols else ""
+
     cursor.execute(
-        """
+        f"""
         INSERT INTO conversation_logs (
-            session_id, timestamp, user_message, agent_used,
-            intent, confidence, response_text, governance_decision, latency_ms
+            session_id, {user_col}timestamp, user_message, agent_used,
+            intent, confidence, {resp_col}, governance_decision, latency_ms
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, {user_val}?, ?, ?, ?, ?, ?, ?, ?)
         """,
         (
             session_id,

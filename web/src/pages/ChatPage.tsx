@@ -253,7 +253,7 @@ export const ChatPage: React.FC = () => {
               )}
 
               {/* Assistant response */}
-              {m.reply && (
+              {(m.reply || m.response) && (
                 <div className="flex justify-start items-start gap-2.5">
                   <div className="w-7 h-7 rounded-full bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sovereign-ice text-[11px] font-mono shrink-0 mt-1">
                     <Bot className="w-3.5 h-3.5" />
@@ -266,7 +266,7 @@ export const ChatPage: React.FC = () => {
                       <div className="flex items-center justify-between pb-2 border-b border-border/60 text-[10px] font-mono">
                         <span className="flex items-center gap-1.5 text-sovereign-ice font-semibold">
                           <Sparkles className="w-3 h-3" />
-                          {m.agent_used || 'Specialist Agent'}
+                          {m.agent_used || m.agent || 'Specialist Agent'}
                         </span>
                         {m.latency_ms !== undefined && (
                           <span className="text-slate-500 flex items-center gap-1">
@@ -277,7 +277,7 @@ export const ChatPage: React.FC = () => {
                       </div>
 
                       <div className="leading-relaxed whitespace-pre-wrap text-slate-200">
-                        {m.reply}
+                        {m.reply || m.response}
                       </div>
 
                       {/* Citation Accordion */}
@@ -321,13 +321,13 @@ export const ChatPage: React.FC = () => {
                     </div>
 
                     {/* Inline Governance Receipt Card */}
-                    {(m.governance_decision || m.action) && (
+                    {(m.governance_decision || m.action || m.governance) && (
                       <GovernanceReceipt
                         id={m.action_log_id || (m.action && m.action.id) || null}
                         timestamp={m.timestamp}
-                        decision={m.governance_decision}
-                        reason={m.reply}
-                        citedRule={m.citations?.[0]?.source_file || 'HR Compliance Rule'}
+                        decision={m.governance?.decision || m.governance_decision || (m.action ? 'APPROVE' : undefined)}
+                        reason={m.governance?.reason || m.rule_cited || m.reply || m.response}
+                        citedRule={m.governance?.cited_rule || m.rule_cited || m.citations?.[0]?.source_file || 'HR Compliance Rule'}
                         entryHash={m.action_log_id ? `0x7a8f...${m.action_log_id}cf92` : undefined}
                         payload={m.action?.payload}
                         actionType={m.action?.type}

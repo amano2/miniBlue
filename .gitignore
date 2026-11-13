@@ -14,9 +14,11 @@ data/processed/
 !eval/test_questions.json
 !eval/test_actions.json
 
-# IDE
+# IDE & Agent tooling
 .vscode/
 .idea/
+.agents/
+skills-lock.json
 
 # Internal design & master prompt documentation — NO .md files except README.md
 ARCHITECTURE_AND_DESIGN.md

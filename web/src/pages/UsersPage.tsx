@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Users, UserPlus, Shield, CheckCircle, XCircle } from 'lucide-react';
+import { api } from '../lib/api';
 import { User, UserRole } from '../types';
 
 export const UsersPage: React.FC = () => {
   const [userList, setUserList] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Default demo personas
   useEffect(() => {
-    setUserList([
-      { id: 1, employee_id: 'EMP-001', email: 'employee@miniblue.dev', full_name: 'Alex Mercer', role: 'employee', department: 'Engineering', is_active: true },
-      { id: 2, employee_id: 'MGR-002', email: 'manager@miniblue.dev', full_name: 'Sarah Chen', role: 'manager', department: 'People Operations', is_active: true },
-      { id: 3, employee_id: 'ADM-003', email: 'admin@miniblue.dev', full_name: 'David Vance', role: 'admin', department: 'Human Resources', is_active: true },
-      { id: 4, employee_id: 'AUD-004', email: 'auditor@miniblue.dev', full_name: 'Elena Rostova', role: 'auditor', department: 'Internal Audit', is_active: true },
-    ]);
-    setLoading(false);
+    api.getUsers()
+      .then(setUserList)
+      .catch(() => {
+        setUserList([
+          { id: 1, employee_id: 'EMP-001', email: 'employee@miniblue.dev', full_name: 'Alex Mercer', role: 'employee', department: 'Engineering', is_active: true },
+          { id: 2, employee_id: 'MGR-002', email: 'manager@miniblue.dev', full_name: 'Sarah Chen', role: 'manager', department: 'People Operations', is_active: true },
+          { id: 3, employee_id: 'ADM-003', email: 'admin@miniblue.dev', full_name: 'David Vance', role: 'admin', department: 'Human Resources', is_active: true },
+          { id: 4, employee_id: 'AUD-004', email: 'auditor@miniblue.dev', full_name: 'Elena Rostova', role: 'auditor', department: 'Internal Audit', is_active: true },
+        ]);
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   return (

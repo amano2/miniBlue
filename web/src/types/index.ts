@@ -81,6 +81,15 @@ export interface ChatMessage {
     type?: string | null;
     payload?: Record<string, any> | null;
   } | null;
+  response?: string;
+  agent?: string;
+  rule_cited?: string | null;
+  governance?: {
+    decision?: GovernanceDecision;
+    reason?: string;
+    cited_rule?: string;
+    review_status?: string;
+  } | null;
 }
 
 export interface ChatSession {

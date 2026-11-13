@@ -174,6 +174,11 @@ export const api = {
     return request('/eval/runs');
   },
 
+  // Users
+  getUsers: async (): Promise<User[]> => {
+    return request<User[]>('/users');
+  },
+
   // Health
   getHealth: async (): Promise<{ status: string; index_status: string; llm_provider: string }> => {
     const res = await fetch('/health');

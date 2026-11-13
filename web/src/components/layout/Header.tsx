@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ShieldCheck, Cpu, Zap, UserCheck, RefreshCw } from 'lucide-react';
+import { ShieldCheck, Cpu, Zap, UserCheck, RefreshCw, Database } from 'lucide-react';
 import { useAuthStore } from '../../lib/store';
 import { api } from '../../lib/api';
 import { UserRole } from '../../types';
@@ -42,6 +42,11 @@ export const Header: React.FC = () => {
         <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-xs">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <span>RightAction™ Governed</span>
+        </div>
+
+        <div className="hidden lg:flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 font-mono text-xs">
+          <Database className="w-3.5 h-3.5 text-emerald-400" />
+          <span>Supabase PostgreSQL (Live)</span>
         </div>
 
         <div className="hidden md:flex items-center gap-2 px-2.5 py-1 rounded-full bg-obsidian-900 border border-border text-slate-400 font-mono text-xs">

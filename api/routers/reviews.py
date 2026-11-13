@@ -14,6 +14,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from api.auth import get_current_user, require_role
 from api.db import get_db_connection, resolve_action_review
+from api.supabase_client import sync_review_event_to_supabase
 from api.schemas import ReviewResolutionRequest
 
 logger = logging.getLogger(__name__)
@@ -100,6 +101,14 @@ def resolve_review(
             resolution=payload.resolution,
             notes=notes,
         )
+        sync_review_event_to_supabase({
+            "action_id": action_id,
+            "reviewer_id": current_user["id"],
+            "resolution": payload.resolution,
+            "notes": notes,
+            "timestamp": res.get("resolution_block", {}).get("timestamp", ""),
+            "resolution_hash": res.get("resolution_block", {}).get("entry_hash", ""),
+        })
         return res
     except ValueError as e:
         raise HTTPException(
