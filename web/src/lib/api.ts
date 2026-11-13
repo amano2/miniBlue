@@ -16,16 +16,18 @@ const API_BASE = '/api/v1';
 
 async function request<T>(
   endpoint: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
+  customToken?: string
 ): Promise<T> {
   const tokens = useAuthStore.getState().tokens;
+  const accessToken = customToken || tokens?.access_token;
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     ...(options.headers as Record<string, string>),
   };
 
-  if (tokens?.access_token) {
-    headers['Authorization'] = `Bearer ${tokens.access_token}`;
+  if (accessToken) {
+    headers['Authorization'] = `Bearer ${accessToken}`;
   }
 
   const url = endpoint.startsWith('http') ? endpoint : `${API_BASE}${endpoint}`;
@@ -78,8 +80,8 @@ export const api = {
       body: JSON.stringify({ email, password }),
     });
   },
-  getMe: async (): Promise<User> => {
-    return request<User>('/auth/me');
+  getMe: async (token?: string): Promise<User> => {
+    return request<User>('/auth/me', {}, token);
   },
 
   // Chat

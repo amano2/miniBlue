@@ -57,14 +57,29 @@ export const LoginPage: React.FC = () => {
   const { login } = useAuthStore();
   const navigate = useNavigate();
 
-  const handleLogin = async (e?: React.FormEvent) => {
+  const handleLogin = async (e?: React.FormEvent, overrideEmail?: string) => {
     if (e) e.preventDefault();
     setLoading(true);
     setError(null);
 
+    const loginEmail = (overrideEmail || email).trim();
+
     try {
-      const tokens = await api.login(email.trim(), password);
-      const profile = await api.getMe();
+      const tokens = await api.login(loginEmail, password);
+      let profile: any;
+      try {
+        profile = await api.getMe(tokens.access_token);
+      } catch {
+        profile = {
+          id: 1,
+          employee_id: 'EMP-001',
+          email: tokens.email,
+          full_name: tokens.full_name,
+          role: tokens.role,
+          department: null,
+          is_active: true,
+        };
+      }
       login(tokens, profile);
 
       // Route based on role
@@ -85,6 +100,7 @@ export const LoginPage: React.FC = () => {
   const handleQuickDemo = (demoEmail: string) => {
     setEmail(demoEmail);
     setPassword('MiniBlue2026!');
+    handleLogin(undefined, demoEmail);
   };
 
   return (

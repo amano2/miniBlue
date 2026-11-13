@@ -26,7 +26,7 @@ export const Header: React.FC = () => {
 
     try {
       const tokens = await api.login(emails[targetRole], 'MiniBlue2026!');
-      const profile = await api.getMe();
+      const profile = await api.getMe(tokens.access_token);
       login(tokens, profile);
     } catch (e) {
       console.error('Role switch failed', e);
