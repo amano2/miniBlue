@@ -104,32 +104,28 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-obsidian-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background Decorative Mesh */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-sovereign-amber/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-sovereign-ice/5 rounded-full blur-3xl pointer-events-none" />
-
+    <div className="min-h-screen bg-obsidian-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center z-10">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-600/10 border border-sovereign-amber/40 shadow-amber-glow text-sovereign-amber mb-4">
-          <Shield className="w-8 h-8" />
+        <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-obsidian-900 border border-sovereign-amber/40 text-sovereign-amber mb-3">
+          <Shield className="w-6 h-6" />
         </div>
-        <h2 className="text-3xl font-display font-extrabold text-white tracking-tight">
+        <h1 className="text-2xl font-display font-bold text-white tracking-tight">
           miniBlue Platform
-        </h2>
-        <p className="mt-2 text-sm text-slate-400 font-sans">
-          Enterprise Agentic HR Assistant & RightAction™ Compliance Engine
+        </h1>
+        <p className="mt-1.5 text-xs text-slate-400 font-sans">
+          Governed HR Operations and RightAction Compliance Engine
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-4xl z-10 px-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Column: Login Card & Demo Quick-Select */}
-          <div className="lg:col-span-6 bg-obsidian-900/90 border border-border rounded-2xl p-6 shadow-2xl backdrop-blur-xl">
+          <div className="lg:col-span-6 bg-obsidian-900 border border-border rounded-xl p-6 shadow-xl">
             <div className="mb-6">
-              <span className="text-xs font-mono font-semibold tracking-wider text-sovereign-amber uppercase">
-                1-Click Demo Personas
+              <span className="text-xs font-sans font-semibold text-slate-200">
+                Demo personas
               </span>
-              <p className="text-xs text-slate-400 mt-1">Select a role to test role-based permissions:</p>
+              <p className="text-xs text-slate-400 mt-1">Select a role to test compliance boundaries:</p>
 
               <div className="grid grid-cols-2 gap-2 mt-3">
                 {DEMO_USERS.map((u) => (
@@ -137,14 +133,14 @@ export const LoginPage: React.FC = () => {
                     key={u.role}
                     type="button"
                     onClick={() => handleQuickDemo(u.email)}
-                    className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                    className={`p-2.5 rounded-lg border text-left transition-colors cursor-pointer ${
                       email === u.email
-                        ? 'border-sovereign-amber bg-sovereign-amber/10 shadow-sm'
-                        : 'border-border/80 bg-obsidian-950/70 hover:border-slate-600'
+                        ? 'border-sovereign-amber bg-sovereign-amber/10'
+                        : 'border-border bg-obsidian-950/80 hover:border-slate-600'
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-display font-semibold text-xs text-slate-200">{u.name}</span>
+                      <span className="font-display font-medium text-xs text-slate-200">{u.name}</span>
                       <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded border ${u.badgeColor}`}>
                         {u.role}
                       </span>
@@ -163,8 +159,8 @@ export const LoginPage: React.FC = () => {
               )}
 
               <div>
-                <label className="block text-xs font-mono font-medium text-slate-300">Corporate Email</label>
-                <div className="mt-1 relative rounded-lg shadow-sm">
+                <label className="block text-xs font-sans font-medium text-slate-300">Work email</label>
+                <div className="mt-1 relative rounded-lg">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
                     <Mail className="h-4 w-4" />
                   </div>
@@ -180,8 +176,8 @@ export const LoginPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-mono font-medium text-slate-300">Password</label>
-                <div className="mt-1 relative rounded-lg shadow-sm">
+                <label className="block text-xs font-sans font-medium text-slate-300">Password</label>
+                <div className="mt-1 relative rounded-lg">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
                     <Lock className="h-4 w-4" />
                   </div>
@@ -198,26 +194,25 @@ export const LoginPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full mt-2 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-gradient-to-r from-sovereign-amber to-amber-500 hover:from-amber-400 hover:to-amber-500 text-obsidian-950 font-bold font-sans text-xs shadow-amber-glow transition-all cursor-pointer disabled:opacity-50"
+                className="w-full mt-2 flex items-center justify-center py-2.5 px-4 rounded-lg bg-sovereign-amber hover:bg-amber-400 text-obsidian-950 font-semibold font-sans text-xs transition-colors cursor-pointer disabled:opacity-50"
               >
-                {loading ? 'Authenticating...' : 'Enter Sovereign HR Console'}
-                <ArrowRight className="w-4 h-4" />
+                {loading ? 'Authenticating...' : 'Sign in to console'}
               </button>
             </form>
           </div>
 
           {/* Right Column: Live RightAction Governance Architecture Showcase */}
           <div className="lg:col-span-6 space-y-4">
-            <div className="p-4 rounded-2xl bg-obsidian-900/60 border border-border/80">
+            <div className="p-4 rounded-xl bg-obsidian-900 border border-border">
               <div className="flex items-center gap-2 text-xs font-mono text-sovereign-amber mb-2">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Zero Hallucination • Governed Actions</span>
+                <span>Deterministic policy checks with audit logging</span>
               </div>
-              <h3 className="text-sm font-display font-semibold text-slate-200">
-                Auditable Boundary Control in Real Time
-              </h3>
+              <h2 className="text-sm font-display font-semibold text-slate-200">
+                Auditable boundary control in real time
+              </h2>
               <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                Specialist agents never execute actions silently. Every leave request and reimbursement claim passes
+                Specialist agents never finalize actions silently. Every leave request and reimbursement claim passes
                 through the deterministic RightAction layer and is sealed in a linear SHA-256 hash chain.
               </p>
             </div>

@@ -59,18 +59,20 @@ export const PoliciesPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-to-r from-obsidian-900 to-obsidian-850 border border-border shadow-lg">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-display font-bold text-white flex items-center gap-2">
-            Corporate HR Policy Knowledge Fabric
-            <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-sovereign-amber/15 text-sovereign-amber border border-sovereign-amber/30">
-              {policies.length} Registered Policies
+          <div className="flex items-center gap-3">
+            <h1 className="text-xl font-display font-semibold text-white">
+              Policy library
+            </h1>
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-obsidian-850 text-slate-300 border border-border">
+              {policies.length} documents
             </span>
-          </h1>
-          <p className="text-xs text-slate-400 mt-1 font-sans">
-            Official policy handbooks chunked and indexed into local FAISS + BM25 hybrid vector store.
+          </div>
+          <p className="text-xs text-slate-400 mt-1">
+            Official policy handbooks chunked and indexed into local FAISS and Supabase knowledge store.
           </p>
         </div>
 

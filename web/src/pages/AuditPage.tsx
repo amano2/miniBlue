@@ -46,18 +46,20 @@ export const AuditPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-to-r from-obsidian-900 to-obsidian-850 border border-border shadow-lg">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-display font-bold text-white flex items-center gap-2">
-            Cryptographic Audit Ledger
-            <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
-              SHA-256 Chained
+          <div className="flex items-center gap-3">
+            <h1 className="text-xl font-display font-semibold text-white">
+              Cryptographic audit ledger
+            </h1>
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+              SHA-256 chain
             </span>
-          </h1>
-          <p className="text-xs text-slate-400 mt-1 font-sans">
-            Mathematical proof of zero-tampering. Every RightAction compliance decision is immutably linked from genesis block #1.
+          </div>
+          <p className="text-xs text-slate-400 mt-1">
+            Mathematical proof of zero tampering. Every RightAction compliance decision is immutably linked from genesis block #1.
           </p>
         </div>
 

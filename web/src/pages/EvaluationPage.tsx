@@ -52,25 +52,27 @@ export const EvaluationPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-to-r from-obsidian-900 to-obsidian-850 border border-border shadow-lg">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-display font-bold text-white flex items-center gap-2">
-            Automated Governance & Groundedness Benchmarks
-            <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
-              CI/CD Production Gate
+          <div className="flex items-center gap-3">
+            <h1 className="text-xl font-display font-semibold text-white">
+              Compliance benchmarks
+            </h1>
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+              CI validation gate
             </span>
-          </h1>
+          </div>
           <p className="text-xs text-slate-400 mt-1 font-sans">
-            Validates 100% compliance boundary enforcement, zero hallucination guardrails, and adversarial violation detection.
+            Validates compliance boundary enforcement, grounded policy retrieval, and adversarial violation interception.
           </p>
         </div>
 
         <button
           onClick={handleRunEval}
           disabled={running}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-sovereign-amber to-amber-500 hover:from-amber-400 hover:to-amber-500 text-obsidian-950 font-bold font-sans text-xs shadow-amber-glow transition-all cursor-pointer disabled:opacity-50"
+          className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-sovereign-amber hover:bg-amber-400 text-obsidian-950 font-semibold font-sans text-xs transition-colors cursor-pointer disabled:opacity-50"
         >
           <Play className={`w-3.5 h-3.5 ${running ? 'animate-spin' : 'fill-current'}`} />
           <span>{running ? 'Executing Benchmark...' : 'Run Master Benchmark'}</span>

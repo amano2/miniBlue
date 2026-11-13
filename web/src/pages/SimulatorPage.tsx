@@ -49,18 +49,20 @@ export const SimulatorPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-to-r from-obsidian-900 to-obsidian-850 border border-border shadow-lg">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-display font-bold text-white flex items-center gap-2">
-            Counterfactual Policy What-If Simulator
-            <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
-              Live Chain Isolated
+          <div className="flex items-center gap-3">
+            <h1 className="text-xl font-display font-semibold text-white">
+              Policy simulator
+            </h1>
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+              Chain isolated
             </span>
-          </h1>
-          <p className="text-xs text-slate-400 mt-1 font-sans">
-            Model the impact of prospective policy threshold adjustments against real historical claims before updating handbooks.
+          </div>
+          <p className="text-xs text-slate-400 mt-1">
+            Model the impact of prospective policy threshold adjustments against historical claims without affecting live ledgers.
           </p>
         </div>
 

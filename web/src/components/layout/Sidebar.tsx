@@ -66,10 +66,10 @@ export const Sidebar: React.FC = () => {
           {!sidebarCollapsed && (
             <div className="flex flex-col">
               <span className="font-display font-bold text-base tracking-tight text-white flex items-center gap-1.5">
-                miniBlue <span className="text-[10px] font-mono px-1 py-0.2 rounded bg-sovereign-amber/20 text-sovereign-amber border border-sovereign-amber/30">v3.0</span>
+                miniBlue
               </span>
-              <span className="font-mono text-[10px] text-slate-400 tracking-wider uppercase">
-                RightAction™ Engine
+              <span className="font-sans text-[11px] text-slate-400">
+                RightAction HR engine
               </span>
             </div>
           )}

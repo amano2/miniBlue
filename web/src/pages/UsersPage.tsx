@@ -22,17 +22,19 @@ export const UsersPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-to-r from-obsidian-900 to-obsidian-850 border border-border shadow-lg">
+    <div className="space-y-5">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-display font-bold text-white flex items-center gap-2">
-            Enterprise RBAC User Management
-            <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-sovereign-amber/15 text-sovereign-amber border border-sovereign-amber/30">
-              {userList.length} Active Accounts
+          <div className="flex items-center gap-3">
+            <h1 className="text-xl font-display font-semibold text-white">
+              User management
+            </h1>
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-obsidian-850 text-slate-300 border border-border">
+              {userList.length} active accounts
             </span>
-          </h1>
+          </div>
           <p className="text-xs text-slate-400 mt-1 font-sans">
-            Assign and audit governance boundaries for Employees, Managers, Admins, and Compliance Auditors.
+            Governance roles and boundaries for employees, managers, administrators, and compliance auditors.
           </p>
         </div>
       </div>

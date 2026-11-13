@@ -53,16 +53,18 @@ export const DashboardPage: React.FC = () => {
   const avgLatency = telemetry?.avg_latency_ms || 280;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Top Banner: Role Greeting & Review Alert */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-to-r from-obsidian-900 to-obsidian-850 border border-border shadow-lg">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-display font-bold text-white flex items-center gap-2">
-            Governance Command Console
-            <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-sovereign-amber/15 text-sovereign-amber border border-sovereign-amber/30 uppercase">
-              {user?.role}
+          <div className="flex items-center gap-3">
+            <h1 className="text-xl font-display font-semibold text-white">
+              Observability console
+            </h1>
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-obsidian-850 text-sovereign-amber border border-border capitalize">
+              {user?.role} view
             </span>
-          </h1>
+          </div>
           <p className="text-xs text-slate-400 mt-1 font-sans">
             Real-time multi-agent telemetry, RightAction boundary adherence, and cryptographic audit proofs.
           </p>
@@ -72,11 +74,10 @@ export const DashboardPage: React.FC = () => {
         {pendingCount > 0 && (user?.role === 'manager' || user?.role === 'admin') && (
           <button
             onClick={() => navigate('/reviews')}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-xs font-mono font-medium transition-all shadow-amber-glow cursor-pointer"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-xs font-sans font-medium transition-colors cursor-pointer"
           >
-            <AlertTriangle className="w-4 h-4 text-amber-400 animate-pulse" />
-            <span>{pendingCount} Flagged Tickets Awaiting Review</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
+            <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
+            <span>{pendingCount} flagged tickets need review</span>
           </button>
         )}
       </div>

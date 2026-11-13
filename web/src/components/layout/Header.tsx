@@ -37,21 +37,16 @@ export const Header: React.FC = () => {
 
   return (
     <header className="h-16 px-6 bg-obsidian-950/80 backdrop-blur-md border-b border-border flex items-center justify-between z-20">
-      {/* Left: System Status & Architecture Title */}
-      <div className="flex items-center gap-3">
-        <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-xs">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span>RightAction™ Governed</span>
+      {/* Left: System Status */}
+      <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-obsidian-900 border border-border text-slate-300 font-sans text-xs">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+          <span>RightAction active</span>
         </div>
 
-        <div className="hidden lg:flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 font-mono text-xs">
+        <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-obsidian-900 border border-border text-slate-400 font-sans text-xs">
           <Database className="w-3.5 h-3.5 text-emerald-400" />
-          <span>Supabase PostgreSQL (Live)</span>
-        </div>
-
-        <div className="hidden md:flex items-center gap-2 px-2.5 py-1 rounded-full bg-obsidian-900 border border-border text-slate-400 font-mono text-xs">
-          <Cpu className="w-3.5 h-3.5 text-sovereign-ice" />
-          <span>Multi-Agent Router (0-Cost Gemini)</span>
+          <span>Supabase synced</span>
         </div>
       </div>
 

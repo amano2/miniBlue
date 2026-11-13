@@ -47,20 +47,20 @@ export const RequestsPage: React.FC = () => {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-to-r from-obsidian-900 to-obsidian-850 border border-border shadow-lg">
-        <div>
-          <h1 className="text-xl font-display font-bold text-white flex items-center gap-2">
-            Governed Action Ledger
-            <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-sovereign-amber/15 text-sovereign-amber border border-sovereign-amber/30">
-              {filtered.length} Records
-            </span>
+      <div>
+        <div className="flex items-center gap-3">
+          <h1 className="text-xl font-display font-semibold text-white">
+            Action ledger
           </h1>
-          <p className="text-xs text-slate-400 mt-1 font-sans">
-            Immutable log of all employee leave applications, reimbursement claims, and RightAction compliance decisions.
-          </p>
+          <span className="text-xs font-mono px-2 py-0.5 rounded bg-obsidian-850 text-slate-300 border border-border">
+            {filtered.length} entries
+          </span>
         </div>
+        <p className="text-xs text-slate-400 mt-1">
+          Cryptographically chained records of leave requests, expense claims, and policy validations.
+        </p>
       </div>
 
       {/* Filter and Search Bar */}

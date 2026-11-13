@@ -76,20 +76,20 @@ export const ReviewsPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-to-r from-obsidian-900 to-obsidian-850 border border-border shadow-lg">
-        <div>
-          <h1 className="text-xl font-display font-bold text-white flex items-center gap-2">
-            Human-in-the-Loop (HITL) Review Inbox
-            <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
-              {pendingReviews.length} Pending
-            </span>
+      <div>
+        <div className="flex items-center gap-3">
+          <h1 className="text-xl font-display font-semibold text-white">
+            Manager review inbox
           </h1>
-          <p className="text-xs text-slate-400 mt-1 font-sans">
-            Review compliance-flagged leave and expense requests requiring manager judgment or policy exception approval.
-          </p>
+          <span className="text-xs font-mono px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30">
+            {pendingReviews.length} pending
+          </span>
         </div>
+        <p className="text-xs text-slate-400 mt-1">
+          Review policy-flagged requests requiring manager discretion or documented exceptions.
+        </p>
       </div>
 
       {resolutionSuccess && (

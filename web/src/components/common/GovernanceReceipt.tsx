@@ -56,8 +56,8 @@ export const GovernanceReceipt: React.FC<GovernanceReceiptProps> = ({
           <div className="w-5 h-5 rounded bg-sovereign-amber/15 border border-sovereign-amber/30 flex items-center justify-center text-sovereign-amber">
             <ShieldCheck className="w-3.5 h-3.5" />
           </div>
-          <span className="font-mono text-[11px] font-semibold tracking-wider text-slate-300 uppercase">
-            RightAction™ Governance Receipt
+          <span className="font-mono text-xs font-semibold text-slate-200">
+            RightAction Governance Receipt
           </span>
           {id && (
             <span className="font-mono text-[11px] px-1.5 py-0.5 rounded bg-obsidian-850 text-sovereign-amber border border-border">
